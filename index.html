@@ -2,745 +2,196 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ARTMARKET · Аукцион + Магазин за арты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTMARKET · макс 50 артов</title>
     <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-}
-body {
-    background: radial-gradient(circle at 10% 20%, #1e2a1a, #0a0f07);
-    min-height: 100vh;
-    padding: 20px;
-}
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-}
-.top-bar {
-    background: #000000aa;
-    backdrop-filter: blur(12px);
-    border-radius: 60px;
-    padding: 12px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 25px;
-    border: 1px solid #ffcc77;
-}
-.logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: linear-gradient(135deg, #FFD966, #FFA047);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-}
-.logo span {
-    font-size: 0.9rem;
-    background: none;
-    color: #ffaa55;
-}
-.user-block {
-    background: #2a251e;
-    padding: 6px 20px;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.admin-badge {
-    background: #c97e2a;
-    padding: 4px 12px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-}
-button {
-    background: #b45f2b;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 40px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.1s;
-}
-button:hover { background: #8b471a; }
-.tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-.tab-btn {
-    background: #2c241c;
-    padding: 12px 28px;
-    font-size: 1rem;
-}
-.tab-btn.active {
-    background: #c97e2a;
-    box-shadow: 0 0 8px gold;
-}
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 25px;
-}
-.card {
-    background: #fffaf2;
-    border-radius: 32px;
-    overflow: hidden;
-    transition: 0.2s;
-    box-shadow: 0 15px 25px rgba(0,0,0,0.4);
-}
-.card-img {
-    background: #ffe1b3;
-    font-size: 4rem;
-    text-align: center;
-    padding: 20px;
-}
-.card-body {
-    padding: 20px;
-}
-.title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-.timer {
-    font-family: monospace;
-    background: #2a241c;
-    color: #ffcc77;
-    padding: 4px 12px;
-    border-radius: 30px;
-    font-size: 0.7rem;
-}
-.bid-info {
-    background: #ece0cf;
-    border-radius: 28px;
-    padding: 10px;
-    margin: 12px 0;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-}
-.price {
-    font-size: 1.4rem;
-    color: #bc5a1c;
-}
-.bid-form {
-    display: flex;
-    gap: 8px;
-    margin: 12px 0;
-}
-.bid-input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 60px;
-    border: 1px solid #c9a05e;
-    text-align: center;
-}
-.ban-stamp {
-    background: #aa2e2e;
-    color: white;
-    padding: 6px;
-    border-radius: 30px;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 0.8rem;
-}
-.admin-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-}
-.admin-btn {
-    background: #3a2a1a;
-    font-size: 0.7rem;
-    padding: 6px 10px;
-}
-.shop-buy {
-    background: #2d7547;
-    width: 100%;
-    margin-top: 12px;
-}
-.commission-note {
-    background: #2c261e;
-    color: #ffbb77;
-    padding: 8px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    text-align: center;
-    margin-top: 12px;
-}
-.message-bar {
-    background: #000000aa;
-    backdrop-filter: blur(8px);
-    border-radius: 40px;
-    padding: 12px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-.room-highlight {
-    background: #ffaa33;
-    color: #2a1a0a;
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-weight: bold;
-}
-.create-form {
-    background: #2c261e;
-    border-radius: 32px;
-    padding: 20px;
-    margin-bottom: 25px;
-}
-.create-form h3 {
-    color: #ffdd99;
-    margin-bottom: 12px;
-}
-.create-form input, .create-form textarea {
-    background: #3d3528;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 50px;
-    color: white;
-    margin: 5px;
-}
-.create-form button { background: #d68a3a; }
-.modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000000dd;
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-.modal-card {
-    background: #241f18;
-    padding: 35px;
-    border-radius: 48px;
-    width: 90%;
-    max-width: 380px;
-    text-align: center;
-}
-.modal-card h2 {
-    color: #ffdd99;
-    margin-bottom: 20px;
-}
-.modal-card input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 60px;
-    border: none;
-}
-footer {
-    text-align: center;
-    margin-top: 40px;
-    color: #ac9a70;
-    font-size: 0.8rem;
-}
-.creator-name, .seller-name {
-    font-size: 0.75rem;
-    color: #a57c3c;
-    margin-top: 5px;
-}
-.purchase-date {
-    font-size: 0.7rem;
-    color: #6b5a3e;
-    margin-top: 8px;
-}
-.empty-message {
-    color: #ccaa77;
-    text-align: center;
-    padding: 40px;
-    font-size: 1.2rem;
-}
-        @media (max-width: 700px) {
-            .tabs { justify-content: center; }
-            .tab-btn { padding: 8px 16px; font-size: 0.8rem; }
-            .create-form input { width: 90% !important; }
-        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+        body{background:#0a0f07;padding:20px}
+        .container{max-width:1400px;margin:0 auto}
+        .top-bar{background:#000000aa;border-radius:60px;padding:12px 25px;display:flex;justify-content:space-between;flex-wrap:wrap;margin-bottom:25px;border:1px solid #ffcc77}
+        .logo{font-size:1.8rem;font-weight:bold;background:linear-gradient(135deg,#FFD966,#FFA047);background-clip:text;color:transparent}
+        .user-block{background:#2a251e;padding:6px 20px;border-radius:40px;display:flex;gap:15px}
+        button{background:#b45f2b;border:none;padding:8px 16px;border-radius:40px;color:white;font-weight:bold;cursor:pointer}
+        .tabs{display:flex;gap:10px;margin-bottom:25px}
+        .tab-btn{background:#2c241c;padding:10px 20px}.tab-btn.active{background:#c97e2a}
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+        .card{background:#fffaf2;border-radius:28px;overflow:hidden}
+        .card-img{background:#ffe1b3;font-size:3rem;text-align:center;padding:15px}
+        .card-body{padding:15px}
+        .title{font-size:1.3rem;font-weight:800;display:flex;justify-content:space-between}
+        .timer{background:#2a241c;color:#ffcc77;padding:2px 10px;border-radius:30px;font-size:0.7rem}
+        .bid-info{background:#ece0cf;border-radius:20px;padding:8px;margin:10px 0;display:flex;justify-content:space-between}
+        .price{font-size:1.3rem;color:#bc5a1c}
+        .bid-form{display:flex;gap:8px;margin:10px 0}
+        .bid-input{flex:1;padding:8px;border-radius:60px;border:1px solid #c9a05e;text-align:center}
+        .ban-stamp{background:#aa2e2e;color:white;padding:5px;border-radius:30px;text-align:center;margin-top:8px;font-size:0.7rem}
+        .admin-actions{display:flex;gap:6px;margin-top:8px}
+        .admin-btn{background:#3a2a1a;font-size:0.65rem;padding:4px 8px}
+        .shop-buy{background:#2d7547;width:100%;margin-top:10px}
+        .commission-note{background:#2c261e;color:#ffbb77;padding:5px;border-radius:16px;font-size:0.65rem;text-align:center;margin-top:8px}
+        .message-bar{background:#000000aa;border-radius:30px;padding:8px;text-align:center;margin-bottom:20px;font-size:0.8rem}
+        .create-form{background:#2c261e;border-radius:28px;padding:15px;margin-bottom:20px}
+        .create-form input{background:#3d3528;border:none;padding:8px;border-radius:40px;color:white;margin:3px}
+        .auth-box{max-width:350px;margin:40px auto;background:#241f18;border-radius:40px;padding:25px;text-align:center}
+        .auth-box input{width:100%;padding:10px;margin:10px 0;border-radius:40px;border:none}
+        footer{text-align:center;margin-top:30px;color:#ac9a70;font-size:0.7rem}
+        .creator-name{font-size:0.7rem;color:#a57c3c}
     </style>
 </head>
 <body>
 <div id="app"></div>
 
 <script>
-// ==================== ХРАНИЛИЩА ====================
-let currentUser = null;
-
-const STORAGE = {
-    users: 'artmarket_users',
-    lots: 'artmarket_lots',
-    shop: 'artmarket_shop',
-    bans: 'artmarket_banned_lots',
-    purchases: 'artmarket_purchases',
-    current: 'artmarket_current',
-    activeTab: 'artmarket_active_tab'
-};
-// ==================== CRUD ====================
-function getUsers() { return JSON.parse(localStorage.getItem(STORAGE.users) || '[]'); }
-function saveUsers(u) { localStorage.setItem(STORAGE.users, JSON.stringify(u)); }
-function getLots() { return JSON.parse(localStorage.getItem(STORAGE.lots) || '[]'); }
-function saveLots(l) { localStorage.setItem(STORAGE.lots, JSON.stringify(l)); }
-function getShop() { return JSON.parse(localStorage.getItem(STORAGE.shop) || '[]'); }
-function saveShop(s) { localStorage.setItem(STORAGE.shop, JSON.stringify(s)); }
-function getBans() { return JSON.parse(localStorage.getItem(STORAGE.bans) || '[]'); }
-function saveBans(b) { localStorage.setItem(STORAGE.bans, JSON.stringify(b)); }
-function getPurchases() { return JSON.parse(localStorage.getItem(STORAGE.purchases) || '[]'); }
-function savePurchases(p) { localStorage.setItem(STORAGE.purchases, JSON.stringify(p)); }
-// ==================== ИНИЦИАЛИЗАЦИЯ ====================
-function initData() {
-    let users = getUsers();
-    if (users.length === 0) {
-        users.push({ id: 1, username: "mrght12", isAdmin: true, createdAt: Date.now() });
-        saveUsers(users);
-    } else {
-        const adminExists = users.find(u => u.username === "mrght12");
-        if (adminExists && !adminExists.isAdmin) adminExists.isAdmin = true;
-        if (!adminExists) users.push({ id: Date.now(), username: "mrght12", isAdmin: true, createdAt: Date.now() });
-        saveUsers(users);
-    }
-    
-    if (getLots().length === 0) {
-        saveLots([
-            { id: 101, title: "🍕 Мега пепперони", desc: "40см, двойной сыр, чоризо", emoji: "🍕", currentBid: 90, leaderName: "—", creatorName: "mrght12", endTime: Date.now() + 1000*60*4, isActive: true, winnerName: null },
-            { id: 102, title: "🍣 Царский сет", desc: "24 куска сашими + роллы", emoji: "🍣", currentBid: 140, leaderName: "—", creatorName: "mrght12", endTime: Date.now() + 1000*60*5, isActive: true, winnerName: null },
-            { id: 103, title: "🍔 Крафтовый бургер", desc: "Черная булка, двойная котлета", emoji: "🍔", currentBid: 55, leaderName: "—", creatorName: "mrght12", endTime: Date.now() + 1000*60*3, isActive: true, winnerName: null }
+    let u=null;
+    const MAX=50;
+    function g(k){return JSON.parse(localStorage.getItem(k)||'[]')}
+    function s(k,v){localStorage.setItem(k,JSON.stringify(v))}
+    function init(){
+        let us=g('u');
+        if(!us.length)s('u',[{id:1,username:"mrght12",admin:1}]);
+        else{let a=us.find(x=>x.username==="mrght12");if(a&&!a.admin)a.admin=1;if(!a)us.push({id:Date.now(),username:"mrght12",admin:1});s('u',us);}
+        if(!g('l').length)s('l',[
+            {id:1,t:"🍕 Пепперони",d:"40см, сыр",e:"🍕",b:25,ln:"—",cr:"mrght12",et:Date.now()+240000,ac:1},
+            {id:2,t:"🍣 Царский сет",d:"24 сашими",e:"🍣",b:25,ln:"—",cr:"mrght12",et:Date.now()+300000,ac:1},
+            {id:3,t:"🍔 Бургер",d:"Двойной",e:"🍔",b:25,ln:"—",cr:"mrght12",et:Date.now()+180000,ac:1}
         ]);
-    }
-    
-    if (getShop().length === 0) {
-        saveShop([
-            { id: 201, name: "🎨 Цифровой арт", desc: "Уникальная иллюстрация", price: 30, emoji: "🖼️", sellerName: "mrght12" },
-            { id: 202, name: "🍪 Печенье с предсказанием", desc: "Вкусный сюрприз", price: 15, emoji: "🍪", sellerName: "mrght12" },
-            { id: 203, name: "🥤 Арт-лимонад", desc: "Освежающий напиток", price: 22, emoji: "🥤", sellerName: "mrght12" }
+        if(!g('sh').length)s('sh',[
+            {id:11,n:"🎨 Арт",d:"Иллюстрация",p:25,e:"🖼️",sl:"mrght12"},
+            {id:12,n:"🍪 Печенье",d:"Предсказание",p:15,e:"🍪",sl:"mrght12"}
         ]);
+        if(!g('b'))s('b',[]);
+        if(!g('p'))s('p',[]);
     }
+    function reg(name){
+        if(!name.trim()){alert("Введите имя");return}
+        if(g('u').find(x=>x.username.toLowerCase()===name.toLowerCase())){alert("Уже есть");return}
+        let nu={id:Date.now(),username:name.trim(),admin:(name.trim()==="mrght12"?1:0)};
+        let us=g('u');us.push(nu);s('u',us);u=nu;localStorage.setItem('cu',JSON.stringify(u));render();
+    }
+    function login(name){
+        let f=g('u').find(x=>x.username.toLowerCase()===name.toLowerCase());
+        if(!f){alert("Не найден");return}
+        u=f;localStorage.setItem('cu',JSON.stringify(u));render();
+    }
+    function logout(){u=null;localStorage.removeItem('cu');render();}
+    function fm(t){if(t<=0)return"0:00";let m=Math.floor(t/60000),ss=Math.floor((t%60000)/1000);return `${m}:${ss<10?'0'+ss:ss}`}
+    function isB(id){return g('b').includes(id)}
+    function cf(){let l=g('l'),c=0;for(let i of l){if(i.ac&&Date.now()>=i.et){i.ac=0;i.w=i.ln!=="—"?i.ln:null;c=1}}if(c)s('l',l);}
+    function crA(t,d,e,p,mn){
+        if(!u){alert("Войдите");return}
+        let pr=parseInt(p),min=parseInt(mn)||3;
+        if(isNaN(pr)||pr<1||pr>MAX){alert(`Цена от 1 до ${MAX}`);return}
+        let l=g('l');l.push({id:Date.now(),t:t.trim(),d:d.trim()||"-",e:e.trim()||"🍽️",b:pr,ln:"—",cr:u.username,et:Date.now()+60000*min,ac:1});
+        s('l',l);alert(`✅ Создан`);render();
+    }
+    function bid(id,am){
+        if(!u){alert("Войдите");return}
+        if(isB(id)){alert("Забанено");return}
+        if(am>MAX){alert(`Максимум ${MAX} артов!`);return}
+        let l=g('l'),lot=l.find(x=>x.id===id);
+        if(!lot||!lot.ac||Date.now()>=lot.et){alert("Неактивен");return}
+        if(am<=lot.b){alert(`Ставка > ${lot.b}`);return}
+        lot.b=am;lot.ln=u.username;lot.et=Math.max(lot.et,Date.now()+30000);
+        s('l',l);alert(`✅ Ставка ${am} артов\n💰 Оплата в 49 комнату +10%`);render();
+    }
+    function crS(n,d,p,e){
+        if(!u){alert("Войдите");return}
+        let pr=parseInt(p);
+        if(isNaN(pr)||pr<1||pr>MAX){alert(`Цена от 1 до ${MAX}`);return}
+        let sh=g('sh');sh.push({id:Date.now(),n:n.trim(),d:d.trim()||"-",p:pr,e:e.trim()||"📦",sl:u.username});
+        s('sh',sh);alert(`✅ Товар добавлен`);render();
+    }
+    function buy(id){
+        if(!u){alert("Войдите");return}
+        let sh=g('sh'),item=sh.find(x=>x.id===id);
+        if(!item)return;
+        let com=Math.floor(item.p*0.05),pu=g('p');
+        pu.push({id:Date.now(),uid:u.id,un:u.username,in:item.n,idsc:item.d,iem:item.e,pr:item.p,sel:item.sl,com:com,dt:new Date().toLocaleString()});
+        s('p',pu);alert(`🛒 Куплено за ${item.p} артов\n💸 Комиссия 5% админу\n📌 Оплата в 49 комнату`);
+        s('sh',sh.filter(x=>x.id!==id));render();
+    }
+    function ban(id){let b=g('b');if(!b.includes(id))b.push(id);s('b',b);render();}
+    function unban(id){let b=g('b');s('b',b.filter(x=>x!==id));render();}
+    function delLot(id){if(confirm("Удалить?")){s('l',g('l').filter(x=>x.id!==id));render();}}
+    function delShop(id){if(confirm("Удалить?")){s('sh',g('sh').filter(x=>x.id!==id));render();}}
     
-    if (!localStorage.getItem(STORAGE.bans)) saveBans([]);
-    if (!localStorage.getItem(STORAGE.purchases)) savePurchases([]);
-}// ==================== АВТОРИЗАЦИЯ ====================
-function register(username) {
-    if (!username.trim()) return false;
-    const users = getUsers();
-    if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) return false;
-    const isAdmin = (username.trim() === "mrght12");
-    const newUser = { id: Date.now(), username: username.trim(), isAdmin: isAdmin, createdAt: Date.now() };
-    users.push(newUser);
-    saveUsers(users);
-    currentUser = newUser;
-    localStorage.setItem(STORAGE.current, JSON.stringify(currentUser));
-    return true;
-}
-
-function login(username) {
-    const users = getUsers();
-    const found = users.find(u => u.username.toLowerCase() === username.toLowerCase());
-    if (!found) return false;
-    currentUser = found;
-    localStorage.setItem(STORAGE.current, JSON.stringify(currentUser));
-    return true;
-}
-
-function logout() { 
-    currentUser = null; 
-    localStorage.removeItem(STORAGE.current); 
-    renderApp(); 
-}
-// ==================== ВСПОМОГАТЕЛЬНЫЕ ====================
-function formatTime(ms) { 
-    if (ms <= 0) return "0:00"; 
-    let m = Math.floor(ms / 60000); 
-    let s = Math.floor((ms % 60000) / 1000); 
-    return `${m}:${s<10?'0'+s:s}`; 
-}
-
-function isLotBanned(lotId) { return getBans().includes(lotId); }
-
-function checkFinished() {
-    let lots = getLots();
-    let changed = false;
-    for (let l of lots) {
-        if (l.isActive && Date.now() >= l.endTime) {
-            l.isActive = false;
-            l.winnerName = l.leaderName !== "—" ? l.leaderName : null;
-            changed = true;
+    function render(){
+        let app=document.getElementById('app');if(!app)return;
+        cf();let lots=g('l'),shop=g('sh'),purch=g('p'),log=!!u,adm=u?.admin;
+        if(!log){
+            app.innerHTML=`<div class=container><div class=top-bar><div class=logo>🎨 ARTMARKET (макс ${MAX} артов)</div></div>
+            <div class=auth-box><h2>Вход</h2><input id=name placeholder=Username><button id=loginBtn>Войти</button>
+            <button id=regBtn style=background:#6b4928;margin-top:10px>Регистрация</button><div style=margin-top:15px;color:#ffbb77>⭐ Админ: mrght12</div></div></div>`;
+            document.getElementById('loginBtn')?.onclick=()=>login(document.getElementById('name').value);
+            document.getElementById('regBtn')?.onclick=()=>reg(document.getElementById('name').value);
+            return;
         }
-    }
-    if (changed) saveLots(lots);
-}
-// ==================== АУКЦИОН ====================
-function createAuction(title, desc, emoji, startPrice, durationMinutes) {
-    if (!currentUser) { alert("Войдите в аккаунт"); return false; }
-    if (!title.trim()) { alert("Введите название"); return false; }
-    let price = parseInt(startPrice);
-    if (isNaN(price) || price < 1) { alert("Начальная ставка должна быть ≥1"); return false; }
-    let duration = parseInt(durationMinutes) || 3;
-    if (duration < 1) duration = 1;
-    if (duration > 60) duration = 60;
-    let lots = getLots();
-    let newLot = {
-        id: Date.now(),
-        title: title.trim(),
-        desc: desc.trim() || "Без описания",
-        emoji: emoji.trim() || "🍽️",
-        currentBid: price,
-        leaderName: "—",
-        creatorName: currentUser.username,
-        endTime: Date.now() + 1000 * 60 * duration,
-        isActive: true,
-        winnerName: null
-    };
-    lots.push(newLot);
-    saveLots(lots);
-    alert(`✅ Аукцион "${title}" создан! Длительность ${duration} мин.`);
-    renderApp();
-    return true;
-}
-
-function placeBid(lotId, amount) {
-    if (!currentUser) { alert("Войдите в аккаунт"); return false; }
-    if (!Number.isInteger(amount) || amount <= 0) { alert("Целое число >0"); return false; }
-    if (isLotBanned(lotId)) { alert("❌ На этом лоте ставки ЗАБАНЕНЫ админом!"); return false; }
-    let lots = getLots();
-    let lot = lots.find(l => l.id === lotId);
-    if (!lot || !lot.isActive) { alert("Аукцион неактивен"); return false; }
-    if (Date.now() >= lot.endTime) { alert("Время вышло"); return false; }
-    if (amount <= lot.currentBid) { alert(`Ставка должна быть > ${lot.currentBid}`); return false; }
-    
-    lot.currentBid = amount;
-    lot.leaderName = currentUser.username;
-    lot.endTime = Math.max(lot.endTime, Date.now() + 30000);
-    saveLots(lots);
-    alert(`✅ Ставка ${amount} артов принята!\n💰 При победе ОПЛАТА в 49 комнату +10% комиссия админу`);
-    renderApp();
-    return true;
-}
-// ==================== МАГАЗИН ====================
-function createShopItem(name, desc, price, emoji) {
-    if (!currentUser) { alert("Войдите в аккаунт"); return false; }
-    if (!name.trim()) { alert("Введите название"); return false; }
-    let pr = parseInt(price);
-    if (isNaN(pr) || pr < 1) { alert("Цена должна быть ≥1"); return false; }
-    let shop = getShop();
-    shop.push({
-        id: Date.now(),
-        name: name.trim(),
-        desc: desc.trim() || "Товар",
-        price: pr,
-        emoji: emoji.trim() || "📦",
-        sellerName: currentUser.username
-    });
-    saveShop(shop);
-    alert(`✅ Товар "${name}" добавлен в магазин! Комиссия 5% админу при продаже.`);
-    renderApp();
-    return true;
-}
-
-function buyFromShop(itemId) {
-    if (!currentUser) { alert("Войдите в аккаунт"); return; }
-    let shop = getShop();
-    let item = shop.find(i => i.id === itemId);
-    if (!item) return;
-    let com = Math.floor(item.price * 0.05);
-    
-    let purchases = getPurchases();
-    purchases.push({
-        id: Date.now(),
-        userId: currentUser.id,
-        userName: currentUser.username,
-        itemName: item.name,
-        itemDesc: item.desc,
-        itemEmoji: item.emoji,
-        price: item.price,
-        sellerName: item.sellerName,
-        commission: com,
-        date: new Date().toLocaleString()
-    });
-    savePurchases(purchases);
-    
-    alert(`🛒 Вы купили "${item.name}" за ${item.price} артов.\n💸 Комиссия 5% (${com} артов) уходит админу mrght12.\n📌 Оплата в 49 комнату!`);
-    deleteShopItem(itemId);
-    renderApp();
-}
-// ==================== АДМИН ====================
-function banLot(lotId) { 
-    let bans = getBans(); 
-    if (!bans.includes(lotId)) bans.push(lotId); 
-    saveBans(bans); 
-    renderApp(); 
-}
-
-function unbanLot(lotId) { 
-    let bans = getBans(); 
-    saveBans(bans.filter(id => id !== lotId)); 
-    renderApp(); 
-}
-
-function deleteLot(lotId) { 
-    let lots = getLots(); 
-    saveLots(lots.filter(l => l.id !== lotId)); 
-    renderApp(); 
-}
-
-function deleteShopItem(id) { 
-    let shop = getShop(); 
-    saveShop(shop.filter(i => i.id !== id)); 
-    renderApp(); 
-}
-// ==================== ОТРИСОВКА ====================
-function renderApp() {
-    const app = document.getElementById('app');
-    if (!app) return;
-    checkFinished();
-    const lots = getLots();
-    const shopItems = getShop();
-    const purchases = getPurchases();
-    const isLogged = !!currentUser;
-    const isAdmin = currentUser?.isAdmin === true;
-    
-    // ЭКРАН ВХОДА
-    if (!isLogged) {
-        app.innerHTML = `
-            <div class="container">
-                <div class="top-bar"><div class="logo">🎨 ARTMARKET <span>торгуй артами</span></div></div>
-                <div class="modal" style="position:relative; background:none; backdrop-filter:none; margin-top:40px;">
-                    <div class="modal-card" style="margin:0 auto;">
-                        <h2>Вход / Регистрация</h2>
-                        <input type="text" id="authName" placeholder="Username" autocomplete="off">
-                        <button id="loginBtn">Войти</button>
-                        <button id="regBtn" style="background:#6b4928;">Создать аккаунт</button>
-                        <div class="commission-note" style="margin-top:20px;">⭐ Администратор: mrght12</div>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.getElementById('loginBtn')?.addEventListener('click', () => { 
-            let val = document.getElementById('authName').value; 
-            if (login(val)) renderApp(); else alert("Не найден"); 
-        });
-        document.getElementById('regBtn')?.addEventListener('click', () => { 
-            let val = document.getElementById('authName').value; 
-            if (register(val)) renderApp(); else alert("Занят"); 
-        });
-        return;
-    }
-    
-    let activeTab = localStorage.getItem(STORAGE.activeTab) || 'auction';
-    
-    // ФОРМЫ СОЗДАНИЯ
-    let createAuctionForm = `
-        <div class="create-form">
-            <h3>📢 СОЗДАТЬ СВОЙ АУКЦИОН</h3>
-            <input type="text" id="newTitle" placeholder="Название" style="width:200px;">
-            <input type="text" id="newDesc" placeholder="Описание">
-            <input type="text" id="newEmoji" placeholder="Эмодзи 🍕" style="width:80px;">
-            <input type="number" id="newStartPrice" placeholder="Старт. ставка" style="width:120px;">
-            <input type="number" id="newDuration" placeholder="Мин." value="3" style="width:100px;">
-            <button id="createAuctionBtn">➕ СОЗДАТЬ</button>
-        </div>
-    `;
-    
-    let createShopForm = `
-        <div class="create-form">
-            <h3>🛍️ ВЫСТАВИТЬ В МАГАЗИН</h3>
-            <input type="text" id="shopName" placeholder="Название товара">
-            <input type="text" id="shopDesc" placeholder="Описание">
-            <input type="text" id="shopEmoji" placeholder="Эмодзи 🎁" style="width:80px;">
-            <input type="number" id="shopPrice" placeholder="Цена" style="width:120px;">
-            <button id="createShopBtn">➕ ДОБАВИТЬ</button>
-        </div>
-    `;
-// ========== АУКЦИОН ==========
-let auctionHtml = '';
-if (activeTab === 'auction') {
-    let lotsCards = '';
-    for (let lot of lots) {
-        const timeLeft = lot.isActive ? Math.max(0, lot.endTime - Date.now()) : 0;
-        const banned = isLotBanned(lot.id);
-        let actionBlock = '';
-        if (lot.isActive) {
-            if (banned) {
-                actionBlock = `<div class="ban-stamp">⛔ СТАВКИ ЗАБАНЕНЫ ⛔</div>`;
-            } else {
-                actionBlock = `
-                    <div class="bid-form">
-                        <input type="number" id="bid_${lot.id}" class="bid-input" placeholder="ставка" step="1" min="${lot.currentBid+1}">
-                        <button class="bid-btn" onclick="window.placeBidWrap(${lot.id})">🎨 СТАВКА</button>
-                    </div>
-                    <div class="commission-note">❗ При победе → оплата в 49 комнату +10% комиссии</div>
-                `;
+        let tab=localStorage.getItem('tab')||'auction';
+        let form=tab==='auction'?
+            `<div class=create-form><input id=t placeholder=Название><input id=d placeholder=Описание><input id=e placeholder=🍕 style=width:60px><input id=p placeholder=Старт value=25 style=width:80px><input id=m placeholder=Мин value=3 style=width:60px><button id=crA>➕</button></div>`
+            :`<div class=create-form><input id=n placeholder=Название><input id=de placeholder=Описание><input id=em placeholder=🎁 style=width:60px><input id=pr placeholder=Цена style=width:80px><button id=crS>➕</button></div>`;
+        
+        let items='';
+        if(tab==='auction'){
+            for(let l of lots){
+                let tl=l.ac?Math.max(0,l.et-Date.now()):0;
+                let baned=isB(l.id);
+                items+=`<div class=card><div class=card-img>${l.e}</div><div class=card-body>
+                    <div class=title>${l.t}<span class=timer>${l.ac?fm(tl):"🔒"}</span></div>
+                    <div class=creator-name>👤 ${l.cr}</div><div>${l.d}</div>
+                    <div class=bid-info><span>🎨 Ставка</span><span class=price>${l.b}/${MAX} артов</span></div>
+                    <div>👑 ${l.ln}</div>
+                    ${l.ac?(!baned?`<div class=bid-form><input id=bid_${l.id} class=bid-input placeholder=ставка max=${MAX}><button onclick=bid(${l.id},parseInt(document.getElementById('bid_${l.id}').value))>💸</button></div>
+                    <div class=commission-note>❗ +10% комиссии</div>`:`<div class=ban-stamp>⛔ ЗАБАНЕНО</div>`):`<div class=ban-stamp style=background:#2c6b2f>🏆 ${l.w||'никто'}</div>`}
+                    ${adm?`<div class=admin-actions>${!baned?`<button class=admin-btn onclick=ban(${l.id})>🔨</button>`:`<button class=admin-btn onclick=unban(${l.id})>✅</button>`}<button class=admin-btn onclick=delLot(${l.id})>🗑️</button></div>`:''}
+                </div></div>`;
             }
-        } else {
-            actionBlock = `<div class="ban-stamp" style="background:#2c6b2f;">🏆 ПОБЕДИТЕЛЬ: ${lot.winnerName || 'никто'}</div>`;
+        }else if(tab==='shop'){
+            for(let i of shop){
+                items+=`<div class=card><div class=card-img>${i.e}</div><div class=card-body>
+                    <div class=title>${i.n}</div><div class=creator-name>📦 ${i.sl}</div><div>${i.d}</div>
+                    <div class=bid-info><span>💰 Цена</span><span class=price>${i.p}/${MAX} артов</span></div>
+                    <button class=shop-buy onclick=buy(${i.id})>КУПИТЬ</button>
+                    <div class=commission-note>💸 +5% админу</div>
+                    ${adm?`<button class=admin-btn onclick=delShop(${i.id})>🗑️</button>`:''}
+                </div></div>`;
+            }
+        }else{
+            let my=purch.filter(x=>x.uid===u.id);
+            for(let p of my){
+                items+=`<div class=card><div class=card-img>${p.iem||"🛍️"}</div><div class=card-body>
+                    <div class=title>${p.in}</div><div>${p.idsc}</div>
+                    <div class=bid-info><span>💰 Уплачено</span><span class=price>${p.pr} артов</span></div>
+                    <div class=commission-note>💸 Комиссия: ${p.com} артов</div>
+                    <div class=ban-stamp style=background:#2c6b2f>✅ Оплата в 49 комнату</div>
+                </div></div>`;
+            }
+            if(!my.length)items='<div class=empty-message>📭 Нет покупок</div>';
         }
-        let adminBlock = '';
-        if (isAdmin) {
-            adminBlock = `<div class="admin-actions">
-                ${!banned ? `<button class="admin-btn" onclick="window.banLotWrap(${lot.id})">🔨 Забанить</button>` : `<button class="admin-btn" onclick="window.unbanLotWrap(${lot.id})">✅ Разбанить</button>`}
-                <button class="admin-btn" onclick="window.deleteLotWrap(${lot.id})">🗑️ Удалить</button>
-            </div>`;
-        }
-        lotsCards += `
-            <div class="card">
-                <div class="card-img">${lot.emoji}</div>
-                <div class="card-body">
-                    <div class="title">${lot.title} <span class="timer">⏱️ ${lot.isActive ? formatTime(timeLeft) : "ЗАВЕРШЁН"}</span></div>
-                    <div class="creator-name">👤 Создатель: ${lot.creatorName || "mrght12"}</div>
-                    <div class="desc">${lot.desc}</div>
-                    <div class="bid-info"><span>🎨 Текущая ставка</span><span class="price">${lot.currentBid} артов</span></div>
-                    <div>👑 Лидер: ${lot.leaderName}</div>
-                    ${actionBlock}
-                    ${adminBlock}
-                </div>
-            </div>
-        `;
-    }
-    auctionHtml = `<div class="grid">${lotsCards || '<div class="empty-message">😢 Нет лотов. Создайте свой!</div>'}</div>`;
-}
-// ========== МАГАЗИН ==========
-let shopHtml = '';
-if (activeTab === 'shop') {
-    let shopCards = '';
-    for (let item of shopItems) {
-        let adminDelete = isAdmin ? `<button class="admin-btn" onclick="window.deleteShopItemWrap(${item.id})">🗑️ Удалить</button>` : '';
-        shopCards += `
-            <div class="card">
-                <div class="card-img">${item.emoji}</div>
-                <div class="card-body">
-                    <div class="title">${item.name}</div>
-                    <div class="seller-name">📦 Продавец: ${item.sellerName || "mrght12"}</div>
-                    <div class="desc">${item.desc}</div>
-                    <div class="bid-info"><span>💰 Цена</span><span class="price">${item.price} артов</span></div>
-                    <button class="shop-buy" onclick="window.buyItem(${item.id})">КУПИТЬ СРАЗУ</button>
-                    <div class="commission-note">💸 Комиссия админу 5%</div>
-                    ${adminDelete}
-                </div>
-            </div>
-        `;
-    }
-    shopHtml = `<div class="grid">${shopCards || '<div class="empty-message">📭 Товаров нет. Выставите свой!</div>'}</div>`;
-}
-// ========== МОИ ПОКУПКИ ==========
-let purchasesHtml = '';
-if (activeTab === 'purchases') {
-    let myPurchases = purchases.filter(p => p.userId === currentUser.id);
-    if (myPurchases.length === 0) {
-        purchasesHtml = '<div class="empty-message">📭 У вас пока нет покупок</div>';
-    } else {
-        let purchaseCards = '';
-        for (let p of myPurchases) {
-            purchaseCards += `
-                <div class="card">
-                    <div class="card-img">${p.itemEmoji || "🛍️"}</div>
-                    <div class="card-body">
-                        <div class="title">${p.itemName}</div>
-                        <div class="desc">${p.itemDesc}</div>
-                        <div class="bid-info"><span>💰 Уплачено</span><span class="price">${p.price} артов</span></div>
-                        <div class="seller-name">🧑‍💼 Продавец: ${p.sellerName}</div>
-                        <div class="commission-note">💸 Комиссия админу: ${p.commission} артов (5%)</div>
-                        <div class="purchase-date">📅 ${p.date}</div>
-                        <div class="ban-stamp" style="background:#2c6b2f;">✅ Оплата в 49 комнату</div>
-                    </div>
-                </div>
-            `;
-        }
-        purchasesHtml = `<div class="grid">${purchaseCards}</div>`;
-    }
-}
-    // ========== ФИНАЛЬНАЯ СБОРКА ==========
-    app.innerHTML = `
-        <div class="container">
-            <div class="top-bar">
-                <div class="logo">🎨 ARTMARKET <span>торгуй артами</span></div>
-                <div class="user-block">
-                    <span>👤 ${currentUser.username} ${isAdmin ? '<span class="admin-badge">АДМИН mrght12</span>' : ''}</span>
-                    <button id="logoutBtn">Выйти</button>
-                </div>
-            </div>
-            <div class="tabs">
-                <button class="tab-btn ${activeTab === 'auction' ? 'active' : ''}" onclick="window.switchTab('auction')">🏆 АУКЦИОН</button>
-                <button class="tab-btn ${activeTab === 'shop' ? 'active' : ''}" onclick="window.switchTab('shop')">🛒 МАГАЗИН</button>
-                <button class="tab-btn ${activeTab === 'purchases' ? 'active' : ''}" onclick="window.switchTab('purchases')">📦 МОИ ПОКУПКИ</button>
-            </div>
-            
-            ${activeTab === 'auction' ? createAuctionForm : (activeTab === 'shop' ? createShopForm : '')}
-            
-            <div class="message-bar">
-                💰 <strong>КОМИССИЯ АДМИНА mrght12:</strong> 10% с выигрыша в аукционе + 5% с каждой покупки.<br>
-                📍 ОПЛАТА АРТАМИ после победы/покупки строго в <span class="room-highlight">49 КОМНАТУ</span>.
-            </div>
-            
-            ${activeTab === 'auction' ? auctionHtml : (activeTab === 'shop' ? shopHtml : purchasesHtml)}
-            
-            <footer>⚡ Любой пользователь может создать аукцион и выставить товар. Админ mrght12 банит ставки и удаляет.</footer>
-        </div>
-    `;
-    
-    // НАВЕШИВАЕМ ОБРАБОТЧИКИ
-    document.getElementById('logoutBtn')?.addEventListener('click', logout);
-    document.getElementById('createAuctionBtn')?.addEventListener('click', () => {
-        let title = document.getElementById('newTitle').value;
-        let desc = document.getElementById('newDesc').value;
-        let emoji = document.getElementById('newEmoji').value;
-        let price = document.getElementById('newStartPrice').value;
-        let dur = document.getElementById('newDuration').value;
-        createAuction(title, desc, emoji, price, dur);
-    });
-    document.getElementById('createShopBtn')?.addEventListener('click', () => {
-        let name = document.getElementById('shopName').value;
-        let desc = document.getElementById('shopDesc').value;
-        let price = document.getElementById('shopPrice').value;
-        let emoji = document.getElementById('shopEmoji').value;
-        createShopItem(name, desc, price, emoji);
-    });
-}
-// ==================== ГЛОБАЛЬНЫЕ ФУНКЦИИ ====================
-window.placeBidWrap = function(lotId) {
-    let input = document.getElementById(`bid_${lotId}`);
-    if (!input) return;
-    let val = parseInt(input.value, 10);
-    if (isNaN(val)) { alert("Введите число"); return; }
-    placeBid(lotId, val);
-    input.value = '';
-};
-
-window.banLotWrap = function(lotId) { banLot(lotId); };
-window.unbanLotWrap = function(lotId) { unbanLot(lotId); };
-window.deleteLotWrap = function(lotId) { if(confirm("Удалить лот?")) deleteLot(lotId); };
-window.deleteShopItemWrap = function(id) { if(confirm("Удалить товар?")) deleteShopItem(id); };
-window.buyItem = function(id) { buyFromShop(id); };
-window.switchTab = function(tab) { localStorage.setItem(STORAGE.activeTab, tab); renderApp(); };
-    // ==================== ЗАПУСК ====================
-    initData();
-    
-    let saved = localStorage.getItem(STORAGE.current);
-    if (saved) {
-        try { 
-            let u = JSON.parse(saved); 
-            let found = getUsers().find(x => x.id === u.id); 
-            if (found) currentUser = found; 
-        } catch(e) {}
+        
+        app.innerHTML=`<div class=container><div class=top-bar><div class=logo>🎨 ARTMARKET (макс ${MAX} артов)</div>
+            <div class=user-block><span>👤 ${u.username}${adm?' ⭐АДМИН':''}</span><button onclick=logout()>🚪</button></div></div>
+            <div class=tabs><button class="tab-btn ${tab==='auction'?'active':''}" onclick="localStorage.setItem('tab','auction');render()">🏆 АУК</button>
+            <button class="tab-btn ${tab==='shop'?'active':''}" onclick="localStorage.setItem('tab','shop');render()">🛒 ШОП</button>
+            <button class="tab-btn ${tab==='purchases'?'active':''}" onclick="localStorage.setItem('tab','purchases');render()">📦 МОИ</button></div>
+            ${form}<div class=message-bar>💰 Комиссия: +10% аукцион | +5% магазин | 💎 макс ${MAX} артов<br>📍 Оплата в <b>49 КОМНАТУ</b></div>
+            <div class=grid>${items||'<div class=empty-message>Пусто</div>'}</div><footer>⚡ Админ mrght12 банит и удаляет</footer></div>`;
+        
+        document.getElementById('crA')?.onclick=()=>{
+            let t=document.getElementById('t').value,d=document.getElementById('d').value,e=document.getElementById('e').value,p=document.getElementById('p').value,m=document.getElementById('m').value;
+            crA(t,d,e,p,m);
+        };
+        document.getElementById('crS')?.onclick=()=>{
+            let n=document.getElementById('n').value,de=document.getElementById('de').value,pr=document.getElementById('pr').value,em=document.getElementById('em').value;
+            crS(n,de,pr,em);
+        };
     }
     
-    renderApp();
-    setInterval(() => { 
-        if(document.getElementById('app')) renderApp(); 
-    }, 2000);
+    init();
+    let su=localStorage.getItem('cu');
+    if(su){try{let x=JSON.parse(su);let f=g('u').find(y=>y.id===x.id);if(f)u=f;}catch(e){}}
+    render();
+    setInterval(()=>{if(document.getElementById('app'))render();},2000);
 </script>
 </body>
 </html>
